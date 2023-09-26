@@ -1,14 +1,14 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-
+import datetime
 env = Environment(
     loader=FileSystemLoader('.'),
     autoescape=select_autoescape(['html', 'xml'])
 )
 
-template = env.get_template('template.html')
-
+template = env.get_template('template2.html')
+'''
 caps = [
 {
         "title": "Красная кепка",
@@ -41,7 +41,10 @@ caps = [
         "image": "https://dvmn.org/filer/canonical/1569943836/352/"
     }
 ]
-rendered_page = template.render(caps=caps)
+'''
+time_range = (datetime.datetime.now() - datetime.datetime(year=1920, month=1,day=1)).days//365
+
+rendered_page = template.render(time_range=time_range)
 
 with open('index.html', 'w', encoding="utf8") as file:
     file.write(rendered_page)
